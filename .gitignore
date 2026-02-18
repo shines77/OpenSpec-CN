@@ -140,7 +140,6 @@ dist/
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-
 # Claude
 .claude/
 CLAUDE.md
@@ -153,3 +152,6 @@ result
 # OpenCode
 .opencode/
 opencode.json
+
+# VSCode
+.vscode/
