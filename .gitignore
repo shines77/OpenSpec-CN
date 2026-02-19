@@ -155,3 +155,6 @@ opencode.json
 
 # VSCode
 .vscode/
+
+# package lock file
+package-lock.json

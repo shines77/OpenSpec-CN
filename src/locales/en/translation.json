@@ -1,0 +1,52 @@
+{
+  "app_title": "App: OpenSpec",
+  "app": {
+    "title": "OpenSpec"
+  },
+  "OpenSpec": {
+    "cmds": {
+      "desc": "AI_native system for spec_driven development",
+      "init": {
+        "desc": "Initialize OpenSpec in your project",
+        "options": {
+          "force": "Auto_cleanup legacy files without prompting"
+        }
+      },
+      "update": {
+        "desc": "Update OpenSpec instruction files",
+        "options": {
+          "force": "Force update even when tools are up to date"
+        }
+      },
+      "list": {
+        "desc": "List items (changes by default). Use __specs to list specs.",
+        "options": {
+          "specs": "List specs instead of changes",
+          "changes": "List changes explicitly (default)",
+          "sort": "Sort order: \"recent\" (default) or \"name\"",
+          "json": "Output as JSON (for programmatic use)"
+        }
+      },
+      "view": {
+        "desc": "Display an interactive dashboard of specs and changes"
+      },
+      "change": {
+        "desc": "Manage OpenSpec change proposals",
+        "cmds": {
+          "show": {
+            "desc": "Show a change proposal in JSON or markdown format",
+            "options": {
+              "json": "List specs instead of changes",
+              "deltas_only": "List changes explicitly (default)",
+              "requirements_only": "Sort order: \"recent\" (default) or \"name\"",
+              "no_interactive": "Output as JSON (for programmatic use)"
+            }
+          }
+        }
+      }
+    },
+    "options": {
+      "no_color": "Disable color output"
+    }
+  }
+}

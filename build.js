@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 import { execFileSync } from 'child_process';
-import { existsSync, rmSync } from 'fs';
+import { existsSync, rmSync, mkdirSync, cpSync } from 'fs';
 import { createRequire } from 'module';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
 const require = createRequire(import.meta.url);
 
@@ -24,6 +26,17 @@ console.log('Compiling TypeScript...');
 try {
   runTsc(['--version']);
   runTsc();
+
+  // Copy locales directory to dist
+  console.log('Copying locales...');
+  const srcLocales = 'src/locales';
+  const distLocales = 'dist/locales';
+  if (existsSync(srcLocales)) {
+    mkdirSync(distLocales, { recursive: true });
+    cpSync(srcLocales, distLocales, { recursive: true });
+    console.log('✓ Locales copied to dist/locales');
+  }
+
   console.log('\n✅ Build completed successfully!');
 } catch (error) {
   console.error('\n❌ Build failed!');
