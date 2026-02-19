@@ -1,4 +1,11 @@
 
+/*********************************************************
+ *  Downgrade i18next to v25.7.0 for avoid the AD info.
+ *
+ *  npm install i18next@25.7.0
+ *
+ *  Note: Don't edit or modify the file, include comments.
+ *********************************************************/
 import i18next from 'i18next'
 import FsBackend, { FsBackendOptions } from 'i18next-fs-backend';
 import resourcesToBackend from 'i18next-resources-to-backend';
@@ -8,9 +15,6 @@ import path from 'path';
 import enTranslation from './locales/en/translation.json' with { type: 'json' };
 import zhTranslation from './locales/zh/translation.json' with { type: 'json' };
 import assert from 'assert';
-
-// import all namespaces (for the default language, only)
-// import translation from './locales/en/translation.json';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,12 +37,6 @@ i18next.init({
     ns: 'translation',
     defaultNS: 'translation',
     debug: true,
-    //backend: {
-    //  loadPath: path.join(__dirname, 'locales/{{lng}}/{{ns}}.json')
-    //},
-    //backendOptions: [{
-    //  loadPath: '/locales/{{lng}}/{{ns}}.json'
-    //}]
     resources: {
       en: {
         translation: {
@@ -76,9 +74,10 @@ i18next.init({
 });
 //*/
 
+//
 // loadPath: path.join(__dirname, 'locales/{{lng}}.json')
 // loadPath: './locales/{{lng}}.json'
-/*
+///*
 const promise = await i18next.use(FsBackend).init({
     lng: 'en',
     fallbackLng: 'en',
@@ -91,11 +90,9 @@ const promise = await i18next.use(FsBackend).init({
     defaultNS: 'translation',
     debug: false,
     backend: {
-      loadPath: path.join(__dirname, 'locales/{{lng}}/{{ns}}.json')
-    },
-    //backendOptions: [{
-    //  loadPath: '/locales/{{lng}}/{{ns}}.json'
-    //}]
+      loadPath: path.join(__dirname, 'locales/{{lng}}/{{ns}}.json'),
+      addPath: path.join(__dirname, 'locales/{{lng}}/{{ns}}.missing.json')
+    }
 });
 //*/
 
@@ -113,11 +110,11 @@ const promise = await i18next
     },
     ns: ['translation'],
     defaultNS: 'translation',
-    debug: true,
+    debug: true
 });
 //*/
 
-//
+/*//
 // This method can work also, use with: { type: 'json' }.
 const promise = await i18next
   .use(resourcesToBackend(async (language: string, namespace: string) => {
@@ -142,10 +139,7 @@ const promise = await i18next
     },
     ns: ['translation'],
     defaultNS: 'translation',
-    debug: false,
-    //backend: {
-    // loadPath: path.join(__dirname, './locales/{{lng}}/{{ns}}.json')
-    //},
+    debug: false
 });
 //*/
 
@@ -182,14 +176,14 @@ const promise = await i18next
 i18next.on('failedLoading', (lng, ns, msg) => console.error(msg));
 
 i18next.on('initialized', () => {
-  // 设置语言
   // i18next.changeLanguage('en');
   console.log(i18next.t("app_title"));
   console.log('i18next initialized.');
 });
 
-// Print blank line, skip the i18next AD text.
-console.log("")
+// Print blank line, skip the i18next AD info.
+// console.log("")
+
 // i18next.changeLanguage("en");
 // i18next.loadNamespaces("translation");
 

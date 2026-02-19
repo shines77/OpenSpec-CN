@@ -42,6 +42,13 @@ export default defineConfig({
     },
     testTimeout: 10000,
     hookTimeout: 10000,
-    teardownTimeout: 3000
+    teardownTimeout: 3000,
+    onConsoleLog: (log) => {
+      // Kick out i18next AD info
+      if (log.includes('i18next') && log.includes('locize')) {
+        return false;
+      }
+      return true;
+    },
   }
 });

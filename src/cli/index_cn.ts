@@ -36,6 +36,7 @@ import i18next from '../i18n.js';
 const program = new Command();
 const require = createRequire(import.meta.url);
 const { version } = require('../../package.json');
+const i18n = i18next;
 
 import { keyFromSelector } from "i18next";
 const mockT = (selector: ($: Record<string, any>) => any) => keyFromSelector(selector);
@@ -63,12 +64,12 @@ function getCommandPath(command: Command): string {
 program
   .name('openspec')
   // 'AI-native system for spec-driven development'
-  .description(i18next.t(mockT($ => $.OpenSpec.cmds.desc)))
+  .description(i18n.t(mockT($ => $.OpenSpec.cmds.desc)))
   .version(version);
 
 // Global options
 // --no-color: 'Disable color output'
-program.option('--no-color', i18next.t(mockT($ => $.OpenSpec.options.no_color)));
+program.option('--no-color', i18n.t(mockT($ => $.OpenSpec.options.no_color)));
 
 // Apply global flags and telemetry before any command runs
 // Note: preAction receives (thisCommand, actionCommand) where:
@@ -98,12 +99,12 @@ const toolsOptionDescription = `Configure AI tools non-interactively. Use "all",
 
 program
   .command('init [path]')
-  //.description(i18next.t('app_title'))
+  //.description(i18n.t('app_title'))
   // 'Initialize OpenSpec in your project'
-  .description(i18next.t('OpenSpec.cmds.init.desc'))
+  .description(i18n.t('OpenSpec.cmds.init.desc'))
   .option('--tools <tools>', toolsOptionDescription)
   // 'Auto-cleanup legacy files without prompting'
-  .option('--force', i18next.t('OpenSpec.cmds.init.options.force'))
+  .option('--force', i18n.t('OpenSpec.cmds.init.options.force'))
   .action(async (targetPath = '.', options?: { tools?: string; force?: boolean }) => {
     try {
       // Validate that the path is a valid directory
@@ -163,9 +164,9 @@ program
 program
   .command('update [path]')
   // 'Update OpenSpec instruction files'
-  .description(i18next.t('OpenSpec.cmds.update.desc'))
+  .description(i18n.t('OpenSpec.cmds.update.desc'))
   // --force: 'Force update even when tools are up to date'
-  .option('--force', i18next.t('OpenSpec.cmds.update.options.force'))
+  .option('--force', i18n.t('OpenSpec.cmds.update.options.force'))
   .action(async (targetPath = '.', options?: { force?: boolean }) => {
     try {
       const resolvedPath = path.resolve(targetPath);
@@ -181,15 +182,15 @@ program
 program
   .command('list')
   // 'List items (changes by default). Use --specs to list specs.'
-  .description(i18next.t('OpenSpec.cmds.list.desc'))
+  .description(i18n.t('OpenSpec.cmds.list.desc'))
   // --specs: 'List specs instead of changes'
-  .option('--specs', i18next.t('OpenSpec.cmds.list.options.specs'))
+  .option('--specs', i18n.t('OpenSpec.cmds.list.options.specs'))
   // --changes: 'List changes explicitly (default)'
-  .option('--changes', i18next.t('OpenSpec.cmds.list.options.changes'))
+  .option('--changes', i18n.t('OpenSpec.cmds.list.options.changes'))
   // --sort <order>: 'Sort order: "recent" (default) or "name"', 'recent'
-  .option('--sort <order>', i18next.t('OpenSpec.cmds.list.options.sort'), 'recent')
+  .option('--sort <order>', i18n.t('OpenSpec.cmds.list.options.sort'), 'recent')
   // --json: 'Output as JSON (for programmatic use)'
-  .option('--json', i18next.t('OpenSpec.cmds.list.options.json'))
+  .option('--json', i18n.t('OpenSpec.cmds.list.options.json'))
   .action(async (options?: { specs?: boolean; changes?: boolean; sort?: string; json?: boolean }) => {
     try {
       const listCommand = new ListCommand();
@@ -206,7 +207,7 @@ program
 program
   .command('view')
   // 'Display an interactive dashboard of specs and changes'
-  .description(i18next.t('OpenSpec.cmds.view.desc'))
+  .description(i18n.t('OpenSpec.cmds.view.desc'))
   .action(async () => {
     try {
       const viewCommand = new ViewCommand();
@@ -222,7 +223,7 @@ program
 const changeCmd = program
   .command('change')
   // 'Manage OpenSpec change proposals'
-  .description(i18next.t('OpenSpec.cmds.change.desc'));
+  .description(i18n.t('OpenSpec.cmds.change.desc'));
 
 // Deprecation notice for noun-based commands
 changeCmd.hook('preAction', () => {
@@ -232,15 +233,15 @@ changeCmd.hook('preAction', () => {
 changeCmd
   .command('show [change-name]')
   // 'Show a change proposal in JSON or markdown format'
-  .description(i18next.t('OpenSpec.cmds.change.cmds.show.desc'))
+  .description(i18n.t('OpenSpec.cmds.change.cmds.show.desc'))
   // --json: 'Output as JSON'
-  .option('--json', i18next.t('OpenSpec.cmds.change.cmds.show.options.json'))
+  .option('--json', i18n.t('OpenSpec.cmds.change.cmds.show.options.json'))
   // --deltas-only: 'Show only deltas (JSON only)'
-  .option('--deltas-only', i18next.t('OpenSpec.cmds.change.cmds.show.options.deltas_only'))
+  .option('--deltas-only', i18n.t('OpenSpec.cmds.change.cmds.show.options.deltas_only'))
   // --requirements-only: 'Alias for --deltas-only (deprecated)'
-  .option('--requirements-only', i18next.t('OpenSpec.cmds.change.cmds.show.options.requirements_only'))
+  .option('--requirements-only', i18n.t('OpenSpec.cmds.change.cmds.show.options.requirements_only'))
   // --no-interactive: 'Disable interactive prompts'
-  .option('--no-interactive', i18next.t('OpenSpec.cmds.change.cmds.show.options.no_interactive'))
+  .option('--no-interactive', i18n.t('OpenSpec.cmds.change.cmds.show.options.no_interactive'))
   .action(async (changeName?: string, options?: { json?: boolean; requirementsOnly?: boolean; deltasOnly?: boolean; noInteractive?: boolean }) => {
     try {
       const changeCommand = new ChangeCommand();
