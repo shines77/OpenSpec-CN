@@ -3,6 +3,9 @@
  *  Downgrade i18next to v25.7.0 for avoid the AD info.
  *
  *  npm install i18next@25.7.0
+ * 
+ *  Or use this option in InitOptions:
+ *  showSupportNotice: false
  *
  *  Note: Don't edit or modify the file, include comments.
  *********************************************************/
@@ -37,6 +40,8 @@ i18next.init({
     ns: 'translation',
     defaultNS: 'translation',
     debug: true,
+    // Close the i18next's locize.com ADS.
+    showSupportNotice: false,
     resources: {
       en: {
         translation: {
@@ -92,7 +97,9 @@ const promise = await i18next.use(FsBackend).init({
     backend: {
       loadPath: path.join(__dirname, 'locales/{{lng}}/{{ns}}.json'),
       addPath: path.join(__dirname, 'locales/{{lng}}/{{ns}}.missing.json')
-    }
+    },
+    // Close the i18next's locize.com ADS.
+    showSupportNotice: false
 });
 //*/
 
@@ -139,7 +146,9 @@ const promise = await i18next
     },
     ns: ['translation'],
     defaultNS: 'translation',
-    debug: false
+    debug: false,
+    // Close the i18next's locize.com ADS.
+    showSupportNotice: false
 });
 //*/
 
@@ -169,7 +178,9 @@ const promise = await i18next
     resources: {
       en: { translation: enTranslation },
       zh: { translation: zhTranslation }
-    }
+    },
+    // Close the i18next's locize.com ADS.
+    showSupportNotice: false
 });
 //*/
 
