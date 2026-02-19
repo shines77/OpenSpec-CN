@@ -18,6 +18,12 @@
           "force": "Force update even when tools are up to date"
         }
       },
+      "config": {
+        "desc": "View and modify global OpenSpec configuration",
+        "options": {
+          "scope": "Config scope (only \"global\" supported currently)"
+        }
+      },
       "list": {
         "desc": "List items (changes by default). Use __specs to list specs.",
         "options": {
@@ -36,13 +42,73 @@
           "show": {
             "desc": "Show a change proposal in JSON or markdown format",
             "options": {
-              "json": "List specs instead of changes",
-              "deltas_only": "List changes explicitly (default)",
-              "requirements_only": "Sort order: \"recent\" (default) or \"name\"",
-              "no_interactive": "Output as JSON (for programmatic use)"
+              "json": "Output as JSON",
+              "deltas_only": "Show only deltas (JSON only)",
+              "requirements_only": "Alias for --deltas-only (deprecated)",
+              "no_interactive": "Disable interactive prompts"
             }
           }
         }
+      },
+      "archive": {
+        "desc": "Archive a completed change and update main specs",
+        "options": {
+          "yes": "Output as JSON",
+          "skip-specs": "Show only deltas (JSON only)",
+          "no_validate": "Alias for --deltas-only (deprecated)"
+        }
+      },
+      "validate": {
+        "desc": "Validate changes and specs",
+        "options": {
+          "json": "Output as JSON",
+          "type": "Specify item type when ambiguous: change|spec",
+          "no_interactive": "Disable interactive prompts",
+          "deltas_only": "Show only deltas (JSON only, change)",
+          "requirements_only": "Alias for --deltas-only (deprecated, change)",
+          "requirements": "JSON only: Show only requirements (exclude scenarios)",
+          "no_scenarios": "JSON only: Exclude scenario content",
+          "requirement": "JSON only: Show specific requirement by ID (1-based)"
+        }
+      },
+      "show": {
+        "desc": "Show a change or spec",
+        "options": {
+          "json": "Output as JSON",
+          "type": "Specify item type when ambiguous: change|spec",
+          "no_interactive": "Disable interactive prompts",
+          "deltas_only": "Show only deltas (JSON only, change)",
+          "requirements_only": "Alias for --deltas-only (deprecated, change)",
+          "requirements": "JSON only: Show only requirements (exclude scenarios)",
+          "no_scenarios": "JSON only: Exclude scenario content",
+          "requirement": "JSON only: Show specific requirement by ID (1-based)"
+        }
+      },
+      "feedback": {
+        "desc": "Submit feedback about OpenSpec",
+        "options": {
+          "body": "Detailed description for the feedback"
+        }
+      },
+      "completion": {
+        "desc": "Manage shell completions for OpenSpec CLI",
+        "cmds": {
+          "install": {
+            "desc": "Install completion script for a shell",
+            "options": {
+              "verbose": "Show detailed installation output"
+            }
+          },
+          "uninstall": {
+            "desc": "Uninstall completion script for a shell",
+            "options": {
+              "yes": "Skip confirmation prompts"
+            }
+          }
+        }
+      },
+      "last": {
+        "desc": "last command"
       }
     },
     "options": {

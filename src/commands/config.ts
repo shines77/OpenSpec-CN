@@ -1,3 +1,4 @@
+import i18next from '../i18n.js';
 import { Command } from 'commander';
 import { spawn } from 'node:child_process';
 import * as fs from 'node:fs';
@@ -18,6 +19,8 @@ import {
   DEFAULT_CONFIG,
 } from '../core/config-schema.js';
 
+const i18n = i18next;
+
 /**
  * Register the config command and all its subcommands.
  *
@@ -26,8 +29,10 @@ import {
 export function registerConfigCommand(program: Command): void {
   const configCmd = program
     .command('config')
-    .description('View and modify global OpenSpec configuration')
-    .option('--scope <scope>', 'Config scope (only "global" supported currently)')
+    // 'View and modify global OpenSpec configuration'
+    .description(i18n.t('OpenSpec.cmds.config.desc'))
+    // --scope <scope>: 'Config scope (only "global" supported currently)'
+    .option('--scope <scope>', i18n.t('OpenSpec.cmds.config.options.scope'))
     .hook('preAction', (thisCommand) => {
       const opts = thisCommand.opts();
       if (opts.scope && opts.scope !== 'global') {

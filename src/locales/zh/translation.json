@@ -5,48 +5,114 @@
   },
   "OpenSpec": {
     "cmds": {
-      "desc": "AI_native system for spec_driven development",
+      "desc": "用于规范驱动(spec_driven)开发的原生AI系统",
       "init": {
-        "desc": "Initialize OpenSpec in your project",
+        "desc": "在你的项目中初始化 OpenSpec",
         "options": {
-          "force": "Auto_cleanup legacy files without prompting"
+          "force": "自动清理旧文件，没有提示"
         }
       },
       "update": {
-        "desc": "Update OpenSpec instruction files",
+        "desc": "更新 OpenSpec 指令文件",
         "options": {
-          "force": "Force update even when tools are up to date"
+          "force": "即使工具已更新，也强制更新"
+        }
+      },
+      "config": {
+        "desc": "查看和修改全局 OpenSpec 配置",
+        "options": {
+          "scope": "配置范围（目前仅支持“全局”）"
         }
       },
       "list": {
-        "desc": "List items (changes by default). Use __specs to list specs.",
+        "desc": "列出项目（默认情况下会列出更改）。使用 __specs 来列出规范。",
         "options": {
-          "specs": "List specs instead of changes",
-          "changes": "List changes explicitly (default)",
-          "sort": "Sort order: \"recent\" (default) or \"name\"",
-          "json": "Output as JSON (for programmatic use)"
+          "specs": "列出规范，而非更改",
+          "changes": "明确列出更改（默认）",
+          "sort": "排序顺序：\"最近\"(recent)（默认）或\"名称\"(name)",
+          "json": "以 JSON 格式输出（供程序化使用）"
         }
       },
       "view": {
-        "desc": "Display an interactive dashboard of specs and changes"
+        "desc": "显示一个包含规范和变更的交互式仪表板"
       },
       "change": {
-        "desc": "Manage OpenSpec change proposals",
+        "desc": "管理 OpenSpec 变更提案",
         "cmds": {
           "show": {
-            "desc": "Show a change proposal in JSON or markdown format",
+            "desc": "以 JSON 或 Markdown 格式来展示变更提案",
             "options": {
-              "json": "List specs instead of changes",
-              "deltas_only": "List changes explicitly (default)",
-              "requirements_only": "Sort order: \"recent\" (default) or \"name\"",
-              "no_interactive": "Output as JSON (for programmatic use)"
+              "json": "输出为JSON",
+              "deltas_only": "仅显示差异（仅限 JSON）",
+              "requirements_only": "--deltas-only 的别名（已弃用）",
+              "no_interactive": "禁用交互式提示"
             }
           }
         }
+      },
+      "archive": {
+        "desc": "将已完成的更改存档，并更新主规范",
+        "options": {
+          "yes": "Output as JSON",
+          "skip-specs": "Show only deltas (JSON only)",
+          "no_validate": "Alias for --deltas-only (deprecated)"
+        }
+      },
+      "validate": {
+        "desc": "验证变更和规范",
+        "options": {
+          "json": "Output as JSON",
+          "type": "Specify item type when ambiguous: change|spec",
+          "no_interactive": "Disable interactive prompts",
+          "deltas_only": "Show only deltas (JSON only, change)",
+          "requirements_only": "Alias for --deltas-only (deprecated, change)",
+          "requirements": "JSON only: Show only requirements (exclude scenarios)",
+          "no_scenarios": "JSON only: Exclude scenario content",
+          "requirement": "JSON only: Show specific requirement by ID (1-based)"
+        }
+      },
+      "show": {
+        "desc": "显示变更或规范",
+        "options": {
+          "json": "输出为 JSON",
+          "type": "当存在歧义时指定项目类型：change | spec",
+          "no_interactive": "禁用交互式提示",
+          "deltas_only": "仅显示差异（仅限 JSON，更改）",
+          "requirements_only": "--deltas-only 的别名（已弃用，待更改）",
+          "requirements": "仅限 JSON：仅显示需求（排除场景）",
+          "no_scenarios": "仅限 JSON：排除场景内容",
+          "requirement": "仅限 JSON：按 ID（从1开始）显示特定要求"
+        }
+      },
+      "feedback": {
+        "desc": "提交关于 OpenSpec 的反馈",
+        "options": {
+          "body": "反馈的详细描述"
+        }
+      },
+      "completion": {
+        "desc": "管理 OpenSpec CLI 的 shell 补全功能",
+        "cmds": {
+          "install": {
+            "desc": "为 Shell 安装完成脚本",
+            "options": {
+              "verbose": "显示详细安装输出"
+            }
+          },
+          "uninstall": {
+            "desc": "Shell 的完全卸载脚本",
+            "options": {
+              "yes": "跳过确认提示"
+            }
+          }
+        }
+      },
+      "last": {
+        "desc": "last command"
       }
     },
     "options": {
-      "no_color": "Disable color output"
+      "no_color": "禁用彩色输出"
     }
   }
 }

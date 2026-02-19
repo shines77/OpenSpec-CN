@@ -1,3 +1,4 @@
+import i18next from '../i18n.js';
 import { Command } from 'commander';
 import { createRequire } from 'module';
 import ora from 'ora';
@@ -31,15 +32,13 @@ import {
   type NewChangeOptions,
 } from '../commands/workflow/index.js';
 import { maybeShowTelemetryNotice, trackCommand, shutdown } from '../telemetry/index.js';
-import i18next from '../i18n.js';
 
 const program = new Command();
 const require = createRequire(import.meta.url);
 const { version } = require('../../package.json');
 const i18n = i18next;
 
-import { keyFromSelector } from "i18next";
-const mockT = (selector: ($: Record<string, any>) => any) => keyFromSelector(selector);
+i18next.changeLanguage("zh");
 
 /**
  * Get the full command path for nested commands.
@@ -64,12 +63,12 @@ function getCommandPath(command: Command): string {
 program
   .name('openspec')
   // 'AI-native system for spec-driven development'
-  .description(i18n.t(mockT($ => $.OpenSpec.cmds.desc)))
+  .description(i18n.t('OpenSpec.cmds.desc'))
   .version(version);
 
 // Global options
 // --no-color: 'Disable color output'
-program.option('--no-color', i18n.t(mockT($ => $.OpenSpec.options.no_color)));
+program.option('--no-color', i18n.t('OpenSpec.options.no_color'));
 
 // Apply global flags and telemetry before any command runs
 // Note: preAction receives (thisCommand, actionCommand) where:
@@ -99,7 +98,6 @@ const toolsOptionDescription = `Configure AI tools non-interactively. Use "all",
 
 program
   .command('init [path]')
-  //.description(i18n.t('app_title'))
   // 'Initialize OpenSpec in your project'
   .description(i18n.t('OpenSpec.cmds.init.desc'))
   .option('--tools <tools>', toolsOptionDescription)
@@ -289,7 +287,8 @@ changeCmd
 
 program
   .command('archive [change-name]')
-  .description('Archive a completed change and update main specs')
+  // 'Archive a completed change and update main specs'
+  .description(i18n.t('OpenSpec.cmds.archive.desc'))
   .option('-y, --yes', 'Skip confirmation prompts')
   .option('--skip-specs', 'Skip spec update operations (useful for infrastructure, tooling, or doc-only changes)')
   .option('--no-validate', 'Skip validation (not recommended, requires confirmation)')
@@ -311,7 +310,8 @@ registerSchemaCommand(program);
 // Top-level validate command
 program
   .command('validate [item-name]')
-  .description('Validate changes and specs')
+  // 'Validate changes and specs'
+  .description(i18n.t('OpenSpec.cmds.validate.desc'))
   .option('--all', 'Validate all changes and specs')
   .option('--changes', 'Validate all changes')
   .option('--specs', 'Validate all specs')
@@ -334,17 +334,26 @@ program
 // Top-level show command
 program
   .command('show [item-name]')
-  .description('Show a change or spec')
-  .option('--json', 'Output as JSON')
-  .option('--type <type>', 'Specify item type when ambiguous: change|spec')
-  .option('--no-interactive', 'Disable interactive prompts')
+  // 'Show a change or spec'
+  .description(i18n.t('OpenSpec.cmds.show.desc'))
+  // --json: 'Output as JSON'
+  .option('--json', i18n.t('OpenSpec.cmds.show.options.json'))
+  // --type <type>: 'Specify item type when ambiguous: change|spec'
+  .option('--type <type>', i18n.t('OpenSpec.cmds.show.options.type'))
+  // --no-interactive: 'Disable interactive prompts'
+  .option('--no-interactive', i18n.t('OpenSpec.cmds.show.options.no_interactive'))
   // change-only flags
-  .option('--deltas-only', 'Show only deltas (JSON only, change)')
-  .option('--requirements-only', 'Alias for --deltas-only (deprecated, change)')
+  // --deltas-only: 'Show only deltas (JSON only, change)
+  .option('--deltas-only', i18n.t('OpenSpec.cmds.show.options.deltas_only'))
+  // --requirements-only: 'Alias for --deltas-only (deprecated, change)'
+  .option('--requirements-only', i18n.t('OpenSpec.cmds.show.options.requirements_only'))
   // spec-only flags
-  .option('--requirements', 'JSON only: Show only requirements (exclude scenarios)')
-  .option('--no-scenarios', 'JSON only: Exclude scenario content')
-  .option('-r, --requirement <id>', 'JSON only: Show specific requirement by ID (1-based)')
+  // --requirements: 'JSON only: Show only requirements (exclude scenarios)
+  .option('--requirements', i18n.t('OpenSpec.cmds.show.options.requirements'))
+  // --no-scenarios: 'JSON only: Exclude scenario content'
+  .option('--no-scenarios', i18n.t('OpenSpec.cmds.show.options.no_scenarios'))
+  // -r, --requirement <id>: 'JSON only: Show specific requirement by ID (1-based)'
+  .option('-r, --requirement <id>', i18n.t('OpenSpec.cmds.show.options.requirement'))
   // allow unknown options to pass-through to underlying command implementation
   .allowUnknownOption(true)
   .action(async (itemName?: string, options?: { json?: boolean; type?: string; noInteractive?: boolean; [k: string]: any }) => {
@@ -361,8 +370,10 @@ program
 // Feedback command
 program
   .command('feedback <message>')
-  .description('Submit feedback about OpenSpec')
-  .option('--body <text>', 'Detailed description for the feedback')
+  // 'Submit feedback about OpenSpec'
+  .description(i18n.t('OpenSpec.cmds.feedback.desc'))
+  // --body <text>: 'Detailed description for the feedback'
+  .option('--body <text>', i18n.t('OpenSpec.cmds.feedback.options.body'))
   .action(async (message: string, options?: { body?: string }) => {
     try {
       const feedbackCommand = new FeedbackCommand();
@@ -377,7 +388,8 @@ program
 // Completion command with subcommands
 const completionCmd = program
   .command('completion')
-  .description('Manage shell completions for OpenSpec CLI');
+  // 'Manage shell completions for OpenSpec CLI'
+  .description(i18n.t('OpenSpec.cmds.completion.desc'));
 
 completionCmd
   .command('generate [shell]')
@@ -395,8 +407,10 @@ completionCmd
 
 completionCmd
   .command('install [shell]')
-  .description('Install completion script for a shell')
-  .option('--verbose', 'Show detailed installation output')
+  // 'Install completion script for a shell'
+  .description(i18n.t('OpenSpec.cmds.install.desc'))
+  // --verbose: 'Show detailed installation output'
+  .option('--verbose', i18n.t('OpenSpec.cmds.install.options.verbose'))
   .action(async (shell?: string, options?: { verbose?: boolean }) => {
     try {
       const completionCommand = new CompletionCommand();
@@ -410,8 +424,10 @@ completionCmd
 
 completionCmd
   .command('uninstall [shell]')
-  .description('Uninstall completion script for a shell')
-  .option('-y, --yes', 'Skip confirmation prompts')
+  // 'Uninstall completion script for a shell'
+  .description(i18n.t('OpenSpec.cmds.uninstall.desc'))
+  // -y, --yes': 'Skip confirmation prompts'
+  .option('-y, --yes', i18n.t('OpenSpec.cmds.uninstall.options.yes'))
   .action(async (shell?: string, options?: { yes?: boolean }) => {
     try {
       const completionCommand = new CompletionCommand();
