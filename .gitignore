@@ -153,6 +153,9 @@ result
 .opencode/
 opencode.json
 
+# Codex
+.codex
+
 # VSCode
 .vscode/
 
